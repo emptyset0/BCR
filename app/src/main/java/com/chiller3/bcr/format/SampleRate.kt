@@ -15,10 +15,10 @@ value class SampleRate(val value: UInt) {
          * API exists.
          */
         val all = arrayOf(
-            SampleRate(8_000u),
             SampleRate(12_000u),
             SampleRate(16_000u),
             SampleRate(24_000u),
+            SampleRate(32_000u),
             SampleRate(48_000u),
         )
         val default = all.last()
