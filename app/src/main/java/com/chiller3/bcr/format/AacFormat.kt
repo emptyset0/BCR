@@ -11,11 +11,11 @@ object AacFormat : Format() {
     override val name: String = "M4A/AAC"
     override val paramInfo: FormatParamInfo = RangedParamInfo(
         RangedParamType.Bitrate,
-        // The format has no hard limits, so the lower bound is ffmpeg's recommended minimum bitrate
-        // for HE-AAC: 24kbps/channel. The upper bound is twice the bitrate for audible transparency
-        // with AAC-LC: 2 * 64kbps/channel.
-        // https://trac.ffmpeg.org/wiki/Encode/AAC
-        24_000u..128_000u,
+        // The format has no hard limits, so the lower bound is Fraunhofer's recommended minimum
+        // bitrate for HE-AAC: 8kbps/channel. The upper bound is twice the bitrate for audible
+        // transparency with AAC-LC: 2 * 64kbps/channel.
+        // https://wiki.hydrogenaud.io/index.php?title=Fraunhofer_FDK_AAC
+        8_000u..128_000u,
         64_000u,
         uintArrayOf(
             24_000u,
@@ -32,7 +32,7 @@ object AacFormat : Format() {
 
     override fun updateMediaFormat(mediaFormat: MediaFormat, param: UInt) {
         mediaFormat.apply {
-            val profile = if (param >= 32_000u) {
+            val profile = if (param > 32_000u) {
                 MediaCodecInfo.CodecProfileLevel.AACObjectLC
             } else {
                 MediaCodecInfo.CodecProfileLevel.AACObjectHE
