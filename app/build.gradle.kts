@@ -157,7 +157,7 @@ android {
         }
 
         create("debugOpt") {
-            buildConfigField("boolean", "FORCE_DEBUG_MODE", "true")
+            buildConfigField("boolean", "FORCE_DEBUG_MODE", "false")
 
             isMinifyEnabled = true
             isShrinkResources = true

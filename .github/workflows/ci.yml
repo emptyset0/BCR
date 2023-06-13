@@ -2,8 +2,9 @@
 on:
   push:
     branches:
-      - master
+      - test
   pull_request:
+  workflow_dispatch:
 jobs:
   build:
     name: Build project
@@ -26,4 +27,10 @@ jobs:
 
       - name: Build and test
         # Debug build only since release builds require a signing key
-        run: ./gradlew --no-daemon build zipDebug -x assembleRelease
+        run: ./gradlew --no-daemon build zipDebugOpt -x assembleRelease
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: app/build/distributions/debugOpt
